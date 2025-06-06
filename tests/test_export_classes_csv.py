@@ -4,7 +4,7 @@ import csv
 from pathlib import Path
 import importlib
 
-def make_vs_stub(tmp_path, classes):
+def make_vs_stub(tmp_path, classes, return_file_path=False):
     vs = types.SimpleNamespace()
     vs.classes = classes
     vs.alerts = []
@@ -20,7 +20,10 @@ def make_vs_stub(tmp_path, classes):
     vs.GetClFillFore = lambda name: 5
     vs.GetClFillBack = lambda name: 6
     vs.GetCVis = lambda name: 0
-    vs.GetFPathName = lambda: str(tmp_path)
+    if return_file_path:
+        vs.GetFPathName = lambda: str(tmp_path / 'doc.vwx')
+    else:
+        vs.GetFPathName = lambda: str(tmp_path)
     vs.AlrtDialog = lambda msg: vs.alerts.append(msg)
     return vs
 
@@ -62,4 +65,15 @@ def test_main_exports_csv(tmp_path):
     assert rows[0]['name'] == 'A'
     assert vs_stub.alerts
     assert 'Class settings exported to:' in vs_stub.alerts[-1]
+
+
+def test_main_exports_csv_with_vwx_path(tmp_path):
+    classes = ['A']
+    vs_stub = make_vs_stub(tmp_path, classes, return_file_path=True)
+    module = load_module(vs_stub)
+
+    module.main()
+
+    csv_file = tmp_path / 'class_settings.csv'
+    assert csv_file.exists()
 
