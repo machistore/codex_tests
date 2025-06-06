@@ -1,0 +1,3 @@
+[submodule "developer-scripting/Function Reference"]
+	path = developer-scripting/Function Reference
+	url = git@github.com:machistore/developer-scripting.git
