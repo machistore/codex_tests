@@ -29,7 +29,13 @@ def get_class_attributes(class_name):
             ['GetClassUseGraphic', 'GetClUseGraphic'], class_name
         ),
         'line_weight': _call_vs_function(
-            ['GetClassLW', 'GetClassLineWeight', 'GetClLW'], class_name
+            [
+                'GetClassPenWeight',
+                'GetClassLW',
+                'GetClassLineWeight',
+                'GetClLW',
+            ],
+            class_name,
         ),
         'line_color_fore': _call_vs_function(
             ['GetClassPenForeColor', 'GetClassPenFore', 'GetClPenFore'],
@@ -43,7 +49,13 @@ def get_class_attributes(class_name):
             ['GetClassLineStyle', 'GetClassLS', 'GetClLS'], class_name
         ),
         'fill_style': _call_vs_function(
-            ['GetClassFPat', 'GetClassFillPat', 'GetClFPat'], class_name
+            [
+                'GetClassFillPattern',
+                'GetClassFPat',
+                'GetClassFillPat',
+                'GetClFPat',
+            ],
+            class_name,
         ),
         'fill_color_fore': _call_vs_function(
             ['GetClassFillForeColor', 'GetClassFillFore', 'GetClFillFore'],
