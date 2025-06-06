@@ -8,14 +8,22 @@ except ImportError:
 
 
 def _call_vs_function(possible_names, *args):
-    """Try to call the first available Vectorworks function from
-    ``possible_names`` with ``args``.
-    ``possible_names`` should be an iterable of function name strings.
+    """Call the first available Vectorworks function from ``possible_names``.
+
+    ``possible_names`` is an iterable of function name strings.  This helper now
+    prints the name of the Vectorworks function that will be called so that, when
+    running the script inside Vectorworks, it is easy to see which API is in use
+    and spot deprecated calls.
     """
+
     for name in possible_names:
         func = getattr(vs, name, None)
         if callable(func):
+            print(f"\u2192 \u547c\u3073\u51fa\u3057\u5148 vs \u95a2\u6570: {name}(), \u5f15\u6570: {args}")
             return func(*args)
+        else:
+            print(f"  \u2605 vs\u30e2\u30b8\u30e5\u30fc\u30eb\u306b '{name}' \u3068\u3044\u3046\u95a2\u6570\u304c\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f。")
+
     raise AttributeError(
         f"None of the following Vectorworks functions are available: {possible_names}"
     )
