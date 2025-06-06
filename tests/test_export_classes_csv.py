@@ -12,14 +12,14 @@ def make_vs_stub(tmp_path, classes):
     vs.ClassNum = lambda: len(classes)
     vs.ClassList = lambda idx: classes[idx-1]
     vs.GetClUseGraphic = lambda name: True
-    vs.GetClPenWeight = lambda name: 15
+    vs.GetClLW = lambda name: 15
     vs.GetClPenFore = lambda name: 1
     vs.GetClPenBack = lambda name: 2
-    vs.GetClPenStyle = lambda name: 3
-    vs.GetClFillStyle = lambda name: 4
+    vs.GetClLS = lambda name: 3
+    vs.GetClFPat = lambda name: 4
     vs.GetClFillFore = lambda name: 5
     vs.GetClFillBack = lambda name: 6
-    vs.GetClassVisibility = lambda name: 0
+    vs.GetCVis = lambda name: 0
     vs.GetFPathName = lambda: str(tmp_path)
     vs.AlrtDialog = lambda msg: vs.alerts.append(msg)
     return vs
