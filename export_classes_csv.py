@@ -25,7 +25,7 @@ def get_class_attributes(class_name):
 
 
 def main():
-    num_classes = vs.NumClasses()
+    num_classes = vs.ClassNum()
     class_data = []
     for idx in range(1, num_classes + 1):
         class_name = vs.ClassList(idx)
