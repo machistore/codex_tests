@@ -44,6 +44,61 @@ def make_vs_stub(tmp_path, classes, return_file_path=False):
 
     vs.GetClassVisibility = lambda name: 0
     vs.GetCVis = lambda name: 0
+
+    vs.GetClassUseFill = lambda name: True
+    vs.GetClassUseFillAttrs = lambda name: True
+    vs.GetClUseFill = lambda name: True
+    vs.GetClUseFillAttrs = lambda name: True
+
+    vs.GetClassFillColor = lambda name: 7
+    vs.GetClFillColor = lambda name: 7
+
+    vs.GetClassSyncLineOpacity = lambda name: True
+    vs.GetClSyncLineOpacity = lambda name: True
+
+    vs.GetClassOpacity = lambda name: 80
+    vs.GetClOpacity = lambda name: 80
+    vs.GetClassFillOpacity = lambda name: 80
+    vs.GetClFillOpacity = lambda name: 80
+
+    vs.GetClassUseDropShadow = lambda name: True
+    vs.GetClUseDropShadow = lambda name: True
+
+    vs.GetClassDropShadowOffsetX = lambda name: 2.54
+    vs.GetClDropShadowOffsetX = lambda name: 2.54
+    vs.GetClassDropShadowOffsetY = lambda name: 2.54
+    vs.GetClDropShadowOffsetY = lambda name: 2.54
+    vs.GetClassDropShadowBlur = lambda name: 1.27
+    vs.GetClDropShadowBlur = lambda name: 1.27
+    vs.GetClassDropShadowColor = lambda name: 8
+    vs.GetClDropShadowColor = lambda name: 8
+    vs.GetClassDropShadowOpacity = lambda name: 50
+    vs.GetClDropShadowOpacity = lambda name: 50
+    vs.GetClassDropShadowAngle = lambda name: 45
+    vs.GetClDropShadowAngle = lambda name: 45
+
+    vs.GetClassPenColor = lambda name: 1
+    vs.GetClPenColor = lambda name: 1
+    vs.GetClassLineColor = lambda name: 1
+    vs.GetClLineColor = lambda name: 1
+
+    vs.GetClassLineThickness = lambda name: 0.1
+    vs.GetClassPenThickness = lambda name: 0.1
+    vs.GetClLineThickness = lambda name: 0.1
+    vs.GetClPenThickness = lambda name: 0.1
+
+    vs.GetClassLineMarker = lambda name: 'arrow'
+    vs.GetClLineMarker = lambda name: 'arrow'
+
+    vs.GetClassLineOpacity = lambda name: 90
+    vs.GetClLineOpacity = lambda name: 90
+
+    vs.GetClassUseTextAttrs = lambda name: True
+    vs.GetClUseTextAttrs = lambda name: True
+    vs.GetClassUseText = lambda name: True
+
+    vs.GetClassTextStyle = lambda name: 'ゴシック'
+    vs.GetClTextStyle = lambda name: 'ゴシック'
     if return_file_path:
         vs.GetFPathName = lambda: str(tmp_path / 'doc.vwx')
     else:
@@ -69,6 +124,9 @@ def test_get_class_attributes(tmp_path):
     assert attrs['name'] == 'Test'
     assert attrs['line_weight'] == 15
     assert attrs['visibility'] == 0
+    assert attrs['use_fill_attrs'] is True
+    assert attrs['line_thickness'] == 0.1
+    assert attrs['shadow_offset_x'] == 2.54
 
 
 def test_main_exports_csv(tmp_path):
@@ -87,6 +145,8 @@ def test_main_exports_csv(tmp_path):
 
     assert len(rows) == len(classes)
     assert rows[0]['name'] == 'A'
+    assert 'line_thickness' in rows[0]
+    assert 'shadow_offset_x' in rows[0]
     assert vs_stub.alerts
     assert 'Class settings exported to:' in vs_stub.alerts[-1]
 

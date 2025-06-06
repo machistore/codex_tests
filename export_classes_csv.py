@@ -76,6 +76,95 @@ def get_class_attributes(class_name):
         'visibility': _call_vs_function(
             ['GetClassVisibility', 'GetCVis'], class_name
         ),
+        'use_fill_attrs': _call_vs_function(
+            [
+                'GetClassUseFill',
+                'GetClassUseFillAttrs',
+                'GetClUseFill',
+                'GetClUseFillAttrs',
+            ],
+            class_name,
+        ),
+        'fill_color': _call_vs_function(
+            ['GetClassFillColor', 'GetClFillColor'],
+            class_name,
+        ),
+        'sync_line_opacity': _call_vs_function(
+            ['GetClassSyncLineOpacity', 'GetClSyncLineOpacity'],
+            class_name,
+        ),
+        'fill_opacity': _call_vs_function(
+            [
+                'GetClassOpacity',
+                'GetClOpacity',
+                'GetClassFillOpacity',
+                'GetClFillOpacity',
+            ],
+            class_name,
+        ),
+        'use_drop_shadow': _call_vs_function(
+            ['GetClassUseDropShadow', 'GetClUseDropShadow'],
+            class_name,
+        ),
+        'shadow_offset_x': _call_vs_function(
+            ['GetClassDropShadowOffsetX', 'GetClDropShadowOffsetX'],
+            class_name,
+        ),
+        'shadow_offset_y': _call_vs_function(
+            ['GetClassDropShadowOffsetY', 'GetClDropShadowOffsetY'],
+            class_name,
+        ),
+        'shadow_blur': _call_vs_function(
+            ['GetClassDropShadowBlur', 'GetClDropShadowBlur'],
+            class_name,
+        ),
+        'shadow_color': _call_vs_function(
+            ['GetClassDropShadowColor', 'GetClDropShadowColor'],
+            class_name,
+        ),
+        'shadow_opacity': _call_vs_function(
+            ['GetClassDropShadowOpacity', 'GetClDropShadowOpacity'],
+            class_name,
+        ),
+        'shadow_angle': _call_vs_function(
+            ['GetClassDropShadowAngle', 'GetClDropShadowAngle'],
+            class_name,
+        ),
+        'line_color': _call_vs_function(
+            [
+                'GetClassPenColor',
+                'GetClPenColor',
+                'GetClassLineColor',
+                'GetClLineColor',
+            ],
+            class_name,
+        ),
+        'line_thickness': _call_vs_function(
+            [
+                'GetClassLineThickness',
+                'GetClassPenThickness',
+                'GetClLineThickness',
+                'GetClPenThickness',
+                'GetClassLineWeight',
+            ],
+            class_name,
+        ),
+        'line_marker': _call_vs_function(
+            ['GetClassLineMarker', 'GetClLineMarker'],
+            class_name,
+        ),
+        'line_opacity': _call_vs_function(
+            ['GetClassLineOpacity', 'GetClLineOpacity'],
+            class_name,
+        ),
+        'use_text_attrs': _call_vs_function(
+            ['GetClassUseTextAttrs', 'GetClUseTextAttrs', 'GetClassUseText'],
+            class_name,
+        ),
+        'text_style': _call_vs_function(
+            ['GetClassTextStyle', 'GetClTextStyle'],
+            class_name,
+        ),
     }
     return attrs
 
