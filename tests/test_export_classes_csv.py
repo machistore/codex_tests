@@ -11,15 +11,15 @@ def make_vs_stub(tmp_path, classes, return_file_path=False):
 
     vs.ClassNum = lambda: len(classes)
     vs.ClassList = lambda idx: classes[idx-1]
-    vs.GetClUseGraphic = lambda name: True
-    vs.GetClLW = lambda name: 15
-    vs.GetClPenFore = lambda name: 1
-    vs.GetClPenBack = lambda name: 2
-    vs.GetClLS = lambda name: 3
-    vs.GetClFPat = lambda name: 4
-    vs.GetClFillFore = lambda name: 5
-    vs.GetClFillBack = lambda name: 6
-    vs.GetCVis = lambda name: 0
+    vs.GetClassUseGraphic = lambda name: True
+    vs.GetClassPenWeight = lambda name: 15
+    vs.GetClassPenForeColor = lambda name: 1
+    vs.GetClassPenBackColor = lambda name: 2
+    vs.GetClassLineStyle = lambda name: 3
+    vs.GetClassFillPattern = lambda name: 4
+    vs.GetClassFillForeColor = lambda name: 5
+    vs.GetClassFillBackColor = lambda name: 6
+    vs.GetClassVisibility = lambda name: 0
     if return_file_path:
         vs.GetFPathName = lambda: str(tmp_path / 'doc.vwx')
     else:
