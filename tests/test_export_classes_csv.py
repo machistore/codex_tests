@@ -11,14 +11,38 @@ def make_vs_stub(tmp_path, classes, return_file_path=False):
 
     vs.ClassNum = lambda: len(classes)
     vs.ClassList = lambda idx: classes[idx-1]
+    vs.GetClassUseGraphic = lambda name: True
     vs.GetClUseGraphic = lambda name: True
+
+    vs.GetClassPenWeight = lambda name: 15
+    vs.GetClassLW = lambda name: 15
+    vs.GetClassLineWeight = lambda name: 15
     vs.GetClLW = lambda name: 15
+
+    vs.GetClassPenForeColor = lambda name: 1
+    vs.GetClassPenFore = lambda name: 1
     vs.GetClPenFore = lambda name: 1
+    vs.GetClassPenBackColor = lambda name: 2
+    vs.GetClassPenBack = lambda name: 2
     vs.GetClPenBack = lambda name: 2
+
+    vs.GetClassLineStyle = lambda name: 3
+    vs.GetClassLS = lambda name: 3
     vs.GetClLS = lambda name: 3
+
+    vs.GetClassFillPattern = lambda name: 4
+    vs.GetClassFPat = lambda name: 4
+    vs.GetClassFillPat = lambda name: 4
     vs.GetClFPat = lambda name: 4
+
+    vs.GetClassFillForeColor = lambda name: 5
+    vs.GetClassFillFore = lambda name: 5
     vs.GetClFillFore = lambda name: 5
+    vs.GetClassFillBackColor = lambda name: 6
+    vs.GetClassFillBack = lambda name: 6
     vs.GetClFillBack = lambda name: 6
+
+    vs.GetClassVisibility = lambda name: 0
     vs.GetCVis = lambda name: 0
     if return_file_path:
         vs.GetFPathName = lambda: str(tmp_path / 'doc.vwx')
