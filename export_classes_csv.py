@@ -12,14 +12,14 @@ def get_class_attributes(class_name):
     attrs = {
         'name': class_name,
         'use_graphic': vs.GetClUseGraphic(class_name),
-        'line_weight': vs.GetClPenWeight(class_name),
+        'line_weight': vs.GetClLW(class_name),
         'line_color_fore': vs.GetClPenFore(class_name),
         'line_color_back': vs.GetClPenBack(class_name),
-        'line_style': vs.GetClPenStyle(class_name),
-        'fill_style': vs.GetClFillStyle(class_name),
+        'line_style': vs.GetClLS(class_name),
+        'fill_style': vs.GetClFPat(class_name),
         'fill_color_fore': vs.GetClFillFore(class_name),
         'fill_color_back': vs.GetClFillBack(class_name),
-        'visibility': vs.GetClassVisibility(class_name),
+        'visibility': vs.GetCVis(class_name),
     }
     return attrs
 
