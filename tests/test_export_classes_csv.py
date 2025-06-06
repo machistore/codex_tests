@@ -9,7 +9,7 @@ def make_vs_stub(tmp_path, classes):
     vs.classes = classes
     vs.alerts = []
 
-    vs.NumClasses = lambda: len(classes)
+    vs.ClassNum = lambda: len(classes)
     vs.ClassList = lambda idx: classes[idx-1]
     vs.GetClUseGraphic = lambda name: True
     vs.GetClPenWeight = lambda name: 15
