@@ -24,10 +24,80 @@ def _call_vs_function(possible_names, *args):
     return None
 
 
+def _color_to_tuple_string(color_index):
+    """Convert a Vectorworks color index to an RGB tuple string if possible."""
+    rgb = None
+    if isinstance(color_index, (tuple, list)) and len(color_index) == 3:
+        rgb = color_index
+    else:
+        rgb = _call_vs_function(
+            [
+                'ColorIndexToRGB',
+                'IndexToRGB',
+                'NumToRGB',
+            ],
+            color_index,
+        )
+
+    if isinstance(rgb, (tuple, list)) and len(rgb) == 3:
+        return f"({rgb[0]}, {rgb[1]}, {rgb[2]})"
+
+    return str(color_index)
+
+
 def get_class_attributes(class_name):
     """Return a dictionary with common class attributes."""
     attrs = {
         'name': class_name,
+        'use_graphic': _call_vs_function(
+            ['GetClassUseGraphic', 'GetClUseGraphic'],
+            class_name,
+        ),
+        'line_weight': _call_vs_function(
+            [
+                'GetClassPenWeight',
+                'GetClassLW',
+                'GetClassLineWeight',
+                'GetClLW',
+            ],
+            class_name,
+        ),
+        'line_color_fore': _color_to_tuple_string(
+            _call_vs_function(
+                ['GetClassPenForeColor', 'GetClassPenFore', 'GetClPenFore'],
+                class_name,
+            )
+        ),
+        'line_color_back': _color_to_tuple_string(
+            _call_vs_function(
+                ['GetClassPenBackColor', 'GetClassPenBack', 'GetClPenBack'],
+                class_name,
+            )
+        ),
+        'line_style': _call_vs_function(
+            ['GetClassLineStyle', 'GetClassLS', 'GetClLS'],
+            class_name,
+        ),
+        'fill_style': _call_vs_function(
+            ['GetClassFillPattern', 'GetClassFPat', 'GetClassFillPat', 'GetClFPat'],
+            class_name,
+        ),
+        'fill_color_fore': _color_to_tuple_string(
+            _call_vs_function(
+                ['GetClassFillForeColor', 'GetClassFillFore', 'GetClFillFore'],
+                class_name,
+            )
+        ),
+        'fill_color_back': _color_to_tuple_string(
+            _call_vs_function(
+                ['GetClassFillBackColor', 'GetClassFillBack', 'GetClFillBack'],
+                class_name,
+            )
+        ),
+        'visibility': _call_vs_function(
+            ['GetClassVisibility', 'GetCVis'],
+            class_name,
+        ),
         'fill_color': _call_vs_function(
             ['GetClassFillColor', 'GetClFillColor'],
             class_name,

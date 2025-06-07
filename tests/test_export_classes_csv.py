@@ -26,6 +26,10 @@ def make_vs_stub(tmp_path, classes, return_file_path=False):
     vs.GetClassPenBack = lambda name: 2
     vs.GetClPenBack = lambda name: 2
 
+    # Conversion from color index to RGB tuple
+    vs.ColorIndexToRGB = lambda idx: (idx, idx, idx)
+    vs.IndexToRGB = lambda idx: (idx, idx, idx)
+
     vs.GetClassLineStyle = lambda name: 3
     vs.GetClassLS = lambda name: 3
     vs.GetClLS = lambda name: 3
@@ -122,9 +126,11 @@ def test_get_class_attributes(tmp_path):
     module = load_module(vs_stub)
     attrs = module.get_class_attributes('Test')
     assert attrs['name'] == 'Test'
-    assert 'line_weight' not in attrs
-    assert 'visibility' not in attrs
+    assert attrs['line_weight'] == 15
+    assert attrs['visibility'] == 0
     assert 'use_fill_attrs' not in attrs
+    assert attrs['line_color_fore'] == '(1, 1, 1)'
+    assert attrs['fill_color_fore'] == '(5, 5, 5)'
     assert attrs['line_thickness'] == 0.1
     assert attrs['shadow_offset_x'] == 2.54
 
@@ -147,6 +153,9 @@ def test_main_exports_csv(tmp_path):
     assert rows[0]['name'] == 'A'
     assert 'line_thickness' in rows[0]
     assert 'shadow_offset_x' in rows[0]
+    assert rows[0]['line_weight'] == '15'
+    assert rows[0]['line_color_fore'] == '(1, 1, 1)'
+    assert rows[0]['visibility'] == '0'
     assert vs_stub.alerts
     assert 'Class settings exported to:' in vs_stub.alerts[-1]
 
