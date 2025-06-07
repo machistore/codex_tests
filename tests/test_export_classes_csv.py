@@ -122,9 +122,9 @@ def test_get_class_attributes(tmp_path):
     module = load_module(vs_stub)
     attrs = module.get_class_attributes('Test')
     assert attrs['name'] == 'Test'
-    assert attrs['line_weight'] == 15
-    assert attrs['visibility'] == 0
-    assert attrs['use_fill_attrs'] is True
+    assert 'line_weight' not in attrs
+    assert 'visibility' not in attrs
+    assert 'use_fill_attrs' not in attrs
     assert attrs['line_thickness'] == 0.1
     assert attrs['shadow_offset_x'] == 2.54
 
