@@ -201,6 +201,68 @@ def get_class_attributes(class_name):
             ['GetClVectorFill', 'GetClassVectorFill'],
             class_name,
         ),
+        'drop_shadow_enabled': _call_vs_function(
+            ['CLDropShadowEnabled'],
+            class_name,
+        ),
+        'fill_color_by_class': _color_to_tuple_string(
+            _call_vs_function(['FillColorByClass'], class_name)
+        ),
+        'fill_pattern_by_class': _call_vs_function(
+            ['FPatByClass'],
+            class_name,
+        ),
+        'class_options': _call_vs_function(
+            ['GetClassOptions'],
+            class_name,
+        ),
+        'drop_shadow_data': _call_vs_function(
+            ['GetCLDrpShadowData'],
+            class_name,
+        ),
+        'line_style_n': _call_vs_function(
+            ['GetClLSN'],
+            class_name,
+        ),
+        'text_style_ref': _call_vs_function(
+            ['GetClTextStyleRef'],
+            class_name,
+        ),
+        'gray_class': _call_vs_function(
+            ['GrayClass'],
+            class_name,
+        ),
+        'hide_class': _call_vs_function(
+            ['HideClass'],
+            class_name,
+        ),
+        'line_style_by_class': _call_vs_function(
+            ['LSByClass'],
+            class_name,
+        ),
+        'line_weight_by_class': _call_vs_function(
+            ['LWByClass'],
+            class_name,
+        ),
+        'marker_by_class': _call_vs_function(
+            ['MarkerByClass'],
+            class_name,
+        ),
+        'name_class': _call_vs_function(
+            ['NameClass'],
+            class_name,
+        ),
+        'opacity_by_class': _call_vs_function(
+            ['OpacityByClass'],
+            class_name,
+        ),
+        'opacity_by_class_n': _call_vs_function(
+            ['OpacityByClassN'],
+            class_name,
+        ),
+        'pen_color_by_class': _color_to_tuple_string(
+            _call_vs_function(['PenColorByClass'], class_name)
+        ),
     }
     return attrs
 
