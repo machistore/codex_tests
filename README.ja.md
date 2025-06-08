@@ -1,4 +1,4 @@
-# codex_tests
+# Codex Tests
 
 [English version](./README.md)
 
