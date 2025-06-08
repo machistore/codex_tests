@@ -103,6 +103,12 @@ def make_vs_stub(tmp_path, classes, return_file_path=False):
 
     vs.GetClassTextStyle = lambda name: 'ゴシック'
     vs.GetClTextStyle = lambda name: 'ゴシック'
+    vs.GetClUseTextStyle = lambda name: True
+    vs.GetClassBeginningMarker = lambda name: (1, 2, 3)
+    vs.GetClassEndMarker = lambda name: (4, 5, 6)
+    vs.GetClassByStyle = lambda name: False
+    vs.GetClOpacityN = lambda name: 75
+    vs.GetClVectorFill = lambda name: 'pattern'
     if return_file_path:
         vs.GetFPathName = lambda: str(tmp_path / 'doc.vwx')
     else:
@@ -133,6 +139,12 @@ def test_get_class_attributes(tmp_path):
     assert attrs['fill_color_fore'] == '(5, 5, 5)'
     assert attrs['line_thickness'] == 0.1
     assert attrs['shadow_offset_x'] == 2.54
+    assert attrs['use_text_style'] is True
+    assert attrs['beginning_marker'] == (1, 2, 3)
+    assert attrs['end_marker'] == (4, 5, 6)
+    assert attrs['by_style'] is False
+    assert attrs['opacity_n'] == 75
+    assert attrs['vector_fill'] == 'pattern'
 
 
 def test_main_exports_csv(tmp_path):
@@ -153,8 +165,10 @@ def test_main_exports_csv(tmp_path):
     assert rows[0]['name'] == 'A'
     assert 'line_thickness' in rows[0]
     assert 'shadow_offset_x' in rows[0]
+    assert 'use_text_style' in rows[0]
     assert rows[0]['line_weight'] == '15'
     assert rows[0]['line_color_fore'] == '(1, 1, 1)'
+    assert rows[0]['vector_fill'] == 'pattern'
     assert rows[0]['visibility'] == '0'
     assert vs_stub.alerts
     assert 'Class settings exported to:' in vs_stub.alerts[-1]
