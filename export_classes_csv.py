@@ -205,9 +205,6 @@ def get_class_attributes(class_name):
             ['CLDropShadowEnabled'],
             class_name,
         ),
-        'fill_color_by_class': _color_to_tuple_string(
-            _call_vs_function(['FillColorByClass'], class_name)
-        ),
         'fill_pattern_by_class': _call_vs_function(
             ['FPatByClass'],
             class_name,
