@@ -1,0 +1,29 @@
+name: Auto-update README fields
+
+on:
+  push:
+    paths:
+      - 'export_classes_csv.py'
+      - 'scripts/generate_fields_md.py'
+      - 'README.md.template'
+      - 'README.ja.md.template'
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Generate README
+        run: python scripts/generate_fields_md.py
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: auto-update class fields in README'
+          branch: main
