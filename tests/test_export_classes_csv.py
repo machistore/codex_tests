@@ -111,7 +111,7 @@ def make_vs_stub(tmp_path, classes, return_file_path=False):
     vs.GetClVectorFill = lambda name: 'pattern'
     vs.CLDropShadowEnabled = lambda name: True
     vs.GetClassOptions = lambda name: 3
-    vs.GetCLDrpShadowData = lambda name: (1, 2, 3, 4, 5, 6)
+    vs.GetCLDrpShadowData = lambda name: (1, 2, 3, 4, 5, 6, 7, 8)
     vs.GetClLSN = lambda name: 12
     vs.GetClTextStyleRef = lambda name: 'ref'
     if return_file_path:
@@ -152,7 +152,7 @@ def test_get_class_attributes(tmp_path):
     assert attrs['vector_fill'] == 'pattern'
     assert attrs['drop_shadow_enabled'] is True
     assert attrs['class_options'] == 3
-    assert attrs['drop_shadow_data'] == (1, 2, 3, 4, 5, 6)
+    assert attrs['drop_shadow_data'] == (1, 2, 3, 4, 5, 6, 7, 8)
     assert attrs['line_style_n'] == 12
     assert attrs['text_style_ref'] == 'ref'
 
@@ -180,7 +180,7 @@ def test_main_exports_csv(tmp_path):
     assert rows[0]['line_weight'] == '15'
     assert rows[0]['line_color_fore'] == '(1, 1, 1)'
     assert rows[0]['vector_fill'] == 'pattern'
-    assert rows[0]['drop_shadow_data'] == '(1, 2, 3, 4, 5, 6)'
+    assert rows[0]['drop_shadow_data'] == '(1, 2, 3, 4, 5, 6, 7, 8)'
     assert rows[0]['visibility'] == '0'
     assert vs_stub.alerts
     assert 'Class settings exported to:' in vs_stub.alerts[-1]
