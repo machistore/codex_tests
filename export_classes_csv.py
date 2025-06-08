@@ -75,7 +75,7 @@ def get_class_attributes(class_name):
             )
         ),
         'line_style': _call_vs_function(
-            ['GetClassLineStyle', 'GetClassLS', 'GetClLS'],
+            ['GetClassLineStyle', 'GetClassLS', 'GetClLSN'],
             class_name,
         ),
         'fill_style': _call_vs_function(

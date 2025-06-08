@@ -11,6 +11,50 @@
     - 値が `None` の場合は `""`（空文字列）になります。
   - `drop_shadow_enabled` フィールドは `GetCLDropShadowEnabled` API を使用します。
 
+### 取得できるクラス設定項目
+
+スクリプトが各クラスについて出力するフィールドは次のとおりです。
+
+```
+name
+use_graphic
+line_weight
+line_color_fore
+line_color_back
+line_style
+fill_style
+fill_color_fore
+fill_color_back
+visibility
+fill_color
+sync_line_opacity
+fill_opacity
+use_drop_shadow
+shadow_offset_x
+shadow_offset_y
+shadow_blur
+shadow_color
+shadow_opacity
+shadow_angle
+line_color
+line_thickness
+line_marker
+line_opacity
+use_text_attrs
+text_style
+use_text_style
+beginning_marker
+end_marker
+by_style
+opacity_n
+vector_fill
+drop_shadow_enabled
+class_options
+drop_shadow_data
+line_style_n
+text_style_ref
+```
+
 ## テスト
 
 `tests` ディレクトリには pytest スイートが含まれています。`tests/test_export_classes_csv.py` は `export_classes_csv.py` が期待通りの CSV を作成することを確認し、Vectorworks API をテスト用にスタブ化する方法を示しています。
