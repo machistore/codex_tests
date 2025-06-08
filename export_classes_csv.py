@@ -201,6 +201,26 @@ def get_class_attributes(class_name):
             ['GetClVectorFill', 'GetClassVectorFill'],
             class_name,
         ),
+        'drop_shadow_enabled': _call_vs_function(
+            ['CLDropShadowEnabled'],
+            class_name,
+        ),
+        'class_options': _call_vs_function(
+            ['GetClassOptions'],
+            class_name,
+        ),
+        'drop_shadow_data': _call_vs_function(
+            ['GetCLDrpShadowData'],
+            class_name,
+        ),
+        'line_style_n': _call_vs_function(
+            ['GetClLSN'],
+            class_name,
+        ),
+        'text_style_ref': _call_vs_function(
+            ['GetClTextStyleRef'],
+            class_name,
+        ),
     }
     return attrs
 
