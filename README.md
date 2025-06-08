@@ -1,4 +1,4 @@
-# codex_tests
+# Codex_Tests
 
 This repository contains example scripts for testing Codex.
 
