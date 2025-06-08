@@ -202,7 +202,7 @@ def get_class_attributes(class_name):
             class_name,
         ),
         'drop_shadow_enabled': _call_vs_function(
-            ['CLDropShadowEnabled'],
+            ['GetCLDropShadowEnabled'],
             class_name,
         ),
         'class_options': _call_vs_function(
@@ -231,6 +231,8 @@ def main():
     for idx in range(1, num_classes + 1):
         class_name = vs.ClassList(idx)
         attrs = get_class_attributes(class_name)
+        if 'drop_shadow_data' in attrs:
+            attrs['drop_shadow_data'] = str(attrs['drop_shadow_data'])
         class_data.append(attrs)
 
     if not class_data:
