@@ -6,7 +6,7 @@
 
 ## 含まれているスクリプト
 
-- `export_classes_csv.py` - Vectorworks のクラス設定を `class_settings.csv` という CSV ファイルにエクスポートします。スクリプトは線色や塗り色、不透明度、テキストスタイルの使用、マーカー情報、ベクターフィルのパターンなど多くの属性を収集します。最近の更新では `use_text_style`, `beginning_marker`, `end_marker`, `by_style`, `opacity_n`, `vector_fill`, `drop_shadow_enabled` などのフィールドが追加されました。
+- `export_classes_csv.py` - Vectorworks のクラス設定を `class_settings.csv` という CSV ファイルにエクスポートします。スクリプトは線色や塗り色、不透明度、テキストスタイルの使用、マーカー情報、ベクターフィルのパターンなど多くの属性を収集します。最近の更新では `use_text_style`, `beginning_marker`, `end_marker`, `by_style`, `opacity_n`, `vector_fill`, `drop_shadow_enabled` のほか、`class_options`, `drop_shadow_data`, `line_style_n`, `text_style_ref` の各フィールドが追加されました。
 
 ## テスト
 
