@@ -32,7 +32,6 @@ def make_vs_stub(tmp_path, classes, return_file_path=False):
 
     vs.GetClassLineStyle = lambda name: 3
     vs.GetClassLS = lambda name: 3
-    vs.GetClLS = lambda name: 3
 
     vs.GetClassFillPattern = lambda name: 4
     vs.GetClassFPat = lambda name: 4
