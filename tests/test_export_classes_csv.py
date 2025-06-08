@@ -1,6 +1,7 @@
 import sys
 import types
 import csv
+import os
 from pathlib import Path
 import importlib
 
@@ -162,9 +163,19 @@ def test_main_exports_csv(tmp_path):
     vs_stub = make_vs_stub(tmp_path, classes)
     module = load_module(vs_stub)
 
-    module.main()
+    desktop = tmp_path / 'Desktop'
+    desktop.mkdir()
+    old_home = os.environ.get('HOME')
+    os.environ['HOME'] = str(tmp_path)
+    try:
+        module.main()
+    finally:
+        if old_home is not None:
+            os.environ['HOME'] = old_home
+        else:
+            del os.environ['HOME']
 
-    csv_file = tmp_path / 'class_settings.csv'
+    csv_file = desktop / 'class_settings.csv'
     assert csv_file.exists()
 
     with csv_file.open() as f:
@@ -191,9 +202,19 @@ def test_main_exports_csv_with_vwx_path(tmp_path):
     vs_stub = make_vs_stub(tmp_path, classes, return_file_path=True)
     module = load_module(vs_stub)
 
-    module.main()
+    desktop = tmp_path / 'Desktop'
+    desktop.mkdir()
+    old_home = os.environ.get('HOME')
+    os.environ['HOME'] = str(tmp_path)
+    try:
+        module.main()
+    finally:
+        if old_home is not None:
+            os.environ['HOME'] = old_home
+        else:
+            del os.environ['HOME']
 
-    csv_file = tmp_path / 'class_settings.csv'
+    csv_file = desktop / 'class_settings.csv'
     assert csv_file.exists()
 
 
@@ -202,9 +223,19 @@ def test_drop_shadow_data_none(tmp_path):
     vs_stub.GetCLDrpShadowData = lambda name: None
     module = load_module(vs_stub)
 
-    module.main()
+    desktop = tmp_path / 'Desktop'
+    desktop.mkdir()
+    old_home = os.environ.get('HOME')
+    os.environ['HOME'] = str(tmp_path)
+    try:
+        module.main()
+    finally:
+        if old_home is not None:
+            os.environ['HOME'] = old_home
+        else:
+            del os.environ['HOME']
 
-    csv_file = tmp_path / 'class_settings.csv'
+    csv_file = desktop / 'class_settings.csv'
     with csv_file.open() as f:
         rows = list(csv.DictReader(f))
 
@@ -215,9 +246,19 @@ def test_drop_shadow_data_formatted(tmp_path):
     vs_stub = make_vs_stub(tmp_path, ['A'])
     module = load_module(vs_stub)
 
-    module.main()
+    desktop = tmp_path / 'Desktop'
+    desktop.mkdir()
+    old_home = os.environ.get('HOME')
+    os.environ['HOME'] = str(tmp_path)
+    try:
+        module.main()
+    finally:
+        if old_home is not None:
+            os.environ['HOME'] = old_home
+        else:
+            del os.environ['HOME']
 
-    csv_file = tmp_path / 'class_settings.csv'
+    csv_file = desktop / 'class_settings.csv'
     with csv_file.open() as f:
         rows = list(csv.DictReader(f))
 

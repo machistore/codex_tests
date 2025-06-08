@@ -242,10 +242,8 @@ def main():
         vs.AlrtDialog('No classes found.')
         return
 
-    base_path = vs.GetFPathName()
-    if base_path.lower().endswith('.vwx'):
-        base_path = os.path.dirname(base_path)
-    csv_path = os.path.join(base_path, 'class_settings.csv')
+    desktop_path = os.path.join(os.path.expanduser('~'), 'Desktop')
+    csv_path = os.path.join(desktop_path, 'class_settings.csv')
 
     fieldnames = list(class_data[0].keys())
     with open(csv_path, 'w', newline='') as csvfile:
