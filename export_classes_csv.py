@@ -202,7 +202,7 @@ def get_class_attributes(class_name):
             class_name,
         ),
         'drop_shadow_enabled': _call_vs_function(
-            ['CLDropShadowEnabled'],
+            ['GetCLDropShadowEnabled'],
             class_name,
         ),
         'class_options': _call_vs_function(
@@ -231,16 +231,19 @@ def main():
     for idx in range(1, num_classes + 1):
         class_name = vs.ClassList(idx)
         attrs = get_class_attributes(class_name)
+        attrs['drop_shadow_data'] = (
+            str(attrs['drop_shadow_data'])
+            if attrs['drop_shadow_data'] is not None
+            else ''
+        )
         class_data.append(attrs)
 
     if not class_data:
         vs.AlrtDialog('No classes found.')
         return
 
-    base_path = vs.GetFPathName()
-    if base_path.lower().endswith('.vwx'):
-        base_path = os.path.dirname(base_path)
-    csv_path = os.path.join(base_path, 'class_settings.csv')
+    desktop_path = os.path.join(os.path.expanduser('~'), 'Desktop')
+    csv_path = os.path.join(desktop_path, 'class_settings.csv')
 
     fieldnames = list(class_data[0].keys())
     with open(csv_path, 'w', newline='') as csvfile:
