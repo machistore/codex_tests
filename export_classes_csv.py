@@ -232,7 +232,11 @@ def main():
         class_name = vs.ClassList(idx)
         attrs = get_class_attributes(class_name)
         if 'drop_shadow_data' in attrs:
-            attrs['drop_shadow_data'] = str(attrs['drop_shadow_data'])
+            attrs['drop_shadow_data'] = (
+                str(attrs['drop_shadow_data'])
+                if attrs['drop_shadow_data'] is not None
+                else ''
+            )
         class_data.append(attrs)
 
     if not class_data:
