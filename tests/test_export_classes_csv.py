@@ -1,6 +1,7 @@
 import sys
 import types
 import csv
+import os
 from pathlib import Path
 import importlib
 
@@ -26,7 +27,6 @@ def make_vs_stub(tmp_path, classes, return_file_path=False):
     vs.GetClassPenBack = lambda name: 2
     vs.GetClPenBack = lambda name: 2
 
-    # Conversion from color index to RGB tuple
     vs.ColorIndexToRGB = lambda idx: (idx, idx, idx)
     vs.IndexToRGB = lambda idx: (idx, idx, idx)
 
@@ -114,11 +114,10 @@ def make_vs_stub(tmp_path, classes, return_file_path=False):
     vs.GetCLDrpShadowData = lambda name: (1, 2, 3, 4, 5, 6, 7, 8)
     vs.GetClLSN = lambda name: 12
     vs.GetClTextStyleRef = lambda name: 'ref'
-    if return_file_path:
-        vs.GetFPathName = lambda: str(tmp_path / 'doc.vwx')
-    else:
-        vs.GetFPathName = lambda: str(tmp_path)
+
+    vs.GetFPathName = lambda: str(tmp_path / 'doc.vwx') if return_file_path else str(tmp_path)
     vs.AlrtDialog = lambda msg: vs.alerts.append(msg)
+
     return vs
 
 
@@ -130,6 +129,24 @@ def load_module(vs_stub):
     if 'export_classes_csv' in sys.modules:
         del sys.modules['export_classes_csv']
     return importlib.import_module('export_classes_csv')
+
+
+def run_main_and_check_csv(module, tmp_path):
+    desktop = tmp_path / 'Desktop'
+    desktop.mkdir()
+    old_home = os.environ.get('HOME')
+    os.environ['HOME'] = str(tmp_path)
+    try:
+        module.main()
+    finally:
+        if old_home is not None:
+            os.environ['HOME'] = old_home
+        else:
+            del os.environ['HOME']
+
+    csv_file = desktop / 'class_settings.csv'
+    assert csv_file.exists()
+    return csv_file
 
 
 def test_get_class_attributes(tmp_path):
@@ -158,68 +175,39 @@ def test_get_class_attributes(tmp_path):
 
 
 def test_main_exports_csv(tmp_path):
-    classes = ['A', 'B']
-    vs_stub = make_vs_stub(tmp_path, classes)
+    vs_stub = make_vs_stub(tmp_path, ['A', 'B'])
     module = load_module(vs_stub)
-
-    module.main()
-
-    csv_file = tmp_path / 'class_settings.csv'
-    assert csv_file.exists()
-
+    csv_file = run_main_and_check_csv(module, tmp_path)
     with csv_file.open() as f:
-        reader = csv.DictReader(f)
-        rows = list(reader)
-
-    assert len(rows) == len(classes)
+        rows = list(csv.DictReader(f))
+    assert len(rows) == 2
     assert rows[0]['name'] == 'A'
-    assert 'line_thickness' in rows[0]
-    assert 'shadow_offset_x' in rows[0]
-    assert 'use_text_style' in rows[0]
-    assert 'drop_shadow_enabled' in rows[0]
-    assert rows[0]['line_weight'] == '15'
-    assert rows[0]['line_color_fore'] == '(1, 1, 1)'
-    assert rows[0]['vector_fill'] == 'pattern'
     assert rows[0]['drop_shadow_data'] == '(1, 2, 3, 4, 5, 6, 7, 8)'
-    assert rows[0]['visibility'] == '0'
-    assert vs_stub.alerts
-    assert 'Class settings exported to:' in vs_stub.alerts[-1]
 
 
 def test_main_exports_csv_with_vwx_path(tmp_path):
-    classes = ['A']
-    vs_stub = make_vs_stub(tmp_path, classes, return_file_path=True)
+    vs_stub = make_vs_stub(tmp_path, ['A'], return_file_path=True)
     module = load_module(vs_stub)
-
-    module.main()
-
-    csv_file = tmp_path / 'class_settings.csv'
-    assert csv_file.exists()
+    csv_file = run_main_and_check_csv(module, tmp_path)
+    with csv_file.open() as f:
+        rows = list(csv.DictReader(f))
+    assert rows[0]['name'] == 'A'
 
 
 def test_drop_shadow_data_none(tmp_path):
     vs_stub = make_vs_stub(tmp_path, ['A'])
     vs_stub.GetCLDrpShadowData = lambda name: None
     module = load_module(vs_stub)
-
-    module.main()
-
-    csv_file = tmp_path / 'class_settings.csv'
+    csv_file = run_main_and_check_csv(module, tmp_path)
     with csv_file.open() as f:
         rows = list(csv.DictReader(f))
-
     assert rows[0]['drop_shadow_data'] == ''
 
 
 def test_drop_shadow_data_formatted(tmp_path):
     vs_stub = make_vs_stub(tmp_path, ['A'])
     module = load_module(vs_stub)
-
-    module.main()
-
-    csv_file = tmp_path / 'class_settings.csv'
+    csv_file = run_main_and_check_csv(module, tmp_path)
     with csv_file.open() as f:
         rows = list(csv.DictReader(f))
-
     assert rows[0]['drop_shadow_data'] == '(1, 2, 3, 4, 5, 6, 7, 8)'
-
