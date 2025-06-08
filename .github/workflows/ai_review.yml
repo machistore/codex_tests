@@ -16,4 +16,4 @@ jobs:
         uses: fluxninja/openai-pr-reviewer@v0.1.4
         with:
           openai-api-key: ${{ secrets.CodeReview }}
-          model: gpt-4.1
+          model: gpt-4
