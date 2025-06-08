@@ -177,6 +177,30 @@ def get_class_attributes(class_name):
             ['GetClassTextStyle', 'GetClTextStyle'],
             class_name,
         ),
+        'use_text_style': _call_vs_function(
+            ['GetClUseTextStyle', 'GetClassUseTextStyle'],
+            class_name,
+        ),
+        'beginning_marker': _call_vs_function(
+            ['GetClassBeginningMarker', 'GetClBeginningMarker'],
+            class_name,
+        ),
+        'end_marker': _call_vs_function(
+            ['GetClassEndMarker', 'GetClEndMarker'],
+            class_name,
+        ),
+        'by_style': _call_vs_function(
+            ['GetClassByStyle', 'GetClByStyle'],
+            class_name,
+        ),
+        'opacity_n': _call_vs_function(
+            ['GetClOpacityN', 'GetClassOpacityN'],
+            class_name,
+        ),
+        'vector_fill': _call_vs_function(
+            ['GetClVectorFill', 'GetClassVectorFill'],
+            class_name,
+        ),
     }
     return attrs
 
