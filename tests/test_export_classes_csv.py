@@ -196,3 +196,30 @@ def test_main_exports_csv_with_vwx_path(tmp_path):
     csv_file = tmp_path / 'class_settings.csv'
     assert csv_file.exists()
 
+
+def test_drop_shadow_data_none(tmp_path):
+    vs_stub = make_vs_stub(tmp_path, ['A'])
+    vs_stub.GetCLDrpShadowData = lambda name: None
+    module = load_module(vs_stub)
+
+    module.main()
+
+    csv_file = tmp_path / 'class_settings.csv'
+    with csv_file.open() as f:
+        rows = list(csv.DictReader(f))
+
+    assert rows[0]['drop_shadow_data'] == ''
+
+
+def test_drop_shadow_data_formatted(tmp_path):
+    vs_stub = make_vs_stub(tmp_path, ['A'])
+    module = load_module(vs_stub)
+
+    module.main()
+
+    csv_file = tmp_path / 'class_settings.csv'
+    with csv_file.open() as f:
+        rows = list(csv.DictReader(f))
+
+    assert rows[0]['drop_shadow_data'] == '(1, 2, 3, 4, 5, 6, 7, 8)'
+
