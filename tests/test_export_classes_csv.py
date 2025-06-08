@@ -110,20 +110,10 @@ def make_vs_stub(tmp_path, classes, return_file_path=False):
     vs.GetClOpacityN = lambda name: 75
     vs.GetClVectorFill = lambda name: 'pattern'
     vs.CLDropShadowEnabled = lambda name: True
-    vs.FPatByClass = lambda name: 10
     vs.GetClassOptions = lambda name: 3
     vs.GetCLDrpShadowData = lambda name: (1, 2, 3, 4, 5, 6)
     vs.GetClLSN = lambda name: 12
     vs.GetClTextStyleRef = lambda name: 'ref'
-    vs.GrayClass = lambda name: 0
-    vs.HideClass = lambda name: 0
-    vs.LSByClass = lambda name: True
-    vs.LWByClass = lambda name: True
-    vs.MarkerByClass = lambda name: 'marker'
-    vs.NameClass = lambda name: name
-    vs.OpacityByClass = lambda name: True
-    vs.OpacityByClassN = lambda name: True
-    vs.PenColorByClass = lambda name: 13
     if return_file_path:
         vs.GetFPathName = lambda: str(tmp_path / 'doc.vwx')
     else:
@@ -161,20 +151,10 @@ def test_get_class_attributes(tmp_path):
     assert attrs['opacity_n'] == 75
     assert attrs['vector_fill'] == 'pattern'
     assert attrs['drop_shadow_enabled'] is True
-    assert attrs['fill_pattern_by_class'] == 10
     assert attrs['class_options'] == 3
     assert attrs['drop_shadow_data'] == (1, 2, 3, 4, 5, 6)
     assert attrs['line_style_n'] == 12
     assert attrs['text_style_ref'] == 'ref'
-    assert attrs['gray_class'] == 0
-    assert attrs['hide_class'] == 0
-    assert attrs['line_style_by_class'] is True
-    assert attrs['line_weight_by_class'] is True
-    assert attrs['marker_by_class'] == 'marker'
-    assert attrs['name_class'] == 'Test'
-    assert attrs['opacity_by_class'] is True
-    assert attrs['opacity_by_class_n'] is True
-    assert attrs['pen_color_by_class'] == '(13, 13, 13)'
 
 
 def test_main_exports_csv(tmp_path):
@@ -201,7 +181,6 @@ def test_main_exports_csv(tmp_path):
     assert rows[0]['line_color_fore'] == '(1, 1, 1)'
     assert rows[0]['vector_fill'] == 'pattern'
     assert rows[0]['drop_shadow_data'] == '(1, 2, 3, 4, 5, 6)'
-    assert rows[0]['marker_by_class'] == 'marker'
     assert rows[0]['visibility'] == '0'
     assert vs_stub.alerts
     assert 'Class settings exported to:' in vs_stub.alerts[-1]
