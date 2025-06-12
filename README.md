@@ -6,15 +6,17 @@ This repository contains example scripts for testing Codex.
 
 ## Included Scripts
 
-- export_classes_csv.py
+- `export_classes_csv.py`
   - Exports Vectorworks class settings to a CSV file named `class_settings.csv`.
   - The script collects many attributes including line and fill colors, opacities, text style usage, marker data, and vector fill patterns.
   - Recent updates added fields such as `use_text_style`, `beginning_marker`, `end_marker`, `by_style`, `opacity_n`, `vector_fill`, `drop_shadow_enabled`, `class_options`, `drop_shadow_data`, `line_style_n`, `text_style_ref`.
-  - drop_shadow_data: `(1, 2, 3, 4, 5, 6, 7, 8)` is exported as a string in the CSV.
+  - `drop_shadow_data`: `(1, 2, 3, 4, 5, 6, 7, 8)` is exported as a string in the CSV.
     - `None` becomes an empty string `""`.
   - drop_shadow_enabled uses the `GetCLDropShadowEnabled` API.
 
 ## Running the Python Scripts
+
+[日本語版](README.ja.md#スクリプトの実行方法) を参照するにはこちら。
 
 To export class settings open Vectorworks, choose **Tools → Plug-ins → Run Python Script…** and select `export_classes_csv.py`. The script saves `class_settings.csv` to your desktop.
 

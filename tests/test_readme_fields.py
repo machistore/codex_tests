@@ -13,3 +13,8 @@ def test_readme_fields_up_to_date():
     code_keys = set(get_class_attributes('Dummy').keys())
     md_keys = load_fields('README.md')
     assert code_keys == md_keys, "README fields are out of sync with code"
+
+def test_readme_ja_fields_up_to_date():
+    code_keys = set(get_class_attributes('Dummy').keys())
+    md_keys = load_fields('README.ja.md')
+    assert code_keys == md_keys, "Japanese README fields are out of sync with code"
