@@ -9,12 +9,16 @@ def load_fields(path):
     assert m, f"FIELDS markers missing in {path}; run scripts/generate_fields_md.py"
     return set(re.findall(r'- `([^`]+)`', m.group(1)))
 
-def test_readme_fields_up_to_date():
-    code_keys = set(get_class_attributes('Dummy').keys())
-    md_keys = load_fields('README.md')
-    assert code_keys == md_keys, "README fields are out of sync with code. Run scripts/generate_fields_md.py"
-
-def test_readme_ja_fields_up_to_date():
-    code_keys = set(get_class_attributes('Dummy').keys())
-    md_keys = load_fields('README.ja.md')
-    assert code_keys == md_keys, "Japanese README fields are out of sync with code. Run scripts/generate_fields_md.py"
+@pytest.mark.parametrize(
+    "filename,lang",
+    [
+        ("README.md", "README"),
+        ("README.ja.md", "Japanese README"),
+    ],
+)
+def test_readme_fields_up_to_date(filename, lang):
+    code_keys = set(get_class_attributes("Dummy").keys())
+    md_keys = load_fields(filename)
+    assert (
+        code_keys == md_keys
+    ), f"{lang} fields are out of sync with code. Run scripts/generate_fields_md.py"
