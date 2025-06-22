@@ -42,7 +42,8 @@ def get_object_var_value(handle, index):
 
 def get_pio_fields(handle):
     """Return a list of (name, value) for the parameters of a plug-in object."""
-    obj_name, obj_handle, record_handle, wall_handle = vs.GetCustomObjectInfo()
+    result = vs.GetCustomObjectInfo()
+    obj_name, obj_handle, record_handle, wall_handle = result[:4]
     if handle != obj_handle:
         return []
 
