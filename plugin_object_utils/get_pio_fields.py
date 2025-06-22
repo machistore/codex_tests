@@ -80,13 +80,18 @@ def main():
         vs.AlrtDialog('Please select a plug-in object.')
         return
 
-    fields = get_pio_fields(h)
-    if not fields:
-        vs.AlrtDialog('Selected object is not a plug-in object.')
-        return
+    all_lines = []
+    while h:
+        fields = get_pio_fields(h)
+        if not fields:
+            vs.AlrtDialog('Selected object is not a plug-in object.')
+        else:
+            lines = [f'{name}: {value}' for name, value in fields]
+            all_lines.append('\n'.join(lines))
+        h = vs.NextSObj(h)
 
-    lines = [f'{name}: {value}' for name, value in fields]
-    vs.AlrtDialog('\n'.join(lines))
+    if all_lines:
+        vs.AlrtDialog('\n\n'.join(all_lines))
 
 
 if __name__ == '__main__':
