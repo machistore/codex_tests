@@ -41,9 +41,22 @@ def get_object_var_value(handle, index):
 
 
 def get_pio_fields(handle):
-    """Return a list of (name, value) for the parameters of a plug-in object."""
-    obj_name, obj_handle, record_handle, wall_handle = vs.GetCustomObjectInfo()
-    if handle != obj_handle:
+    """Return a list of ``(name, value)`` for the parameters of a plug-in object.
+
+    ``GetCustomObjectInfo`` historically returned four values, but newer
+    Vectorworks versions include a leading boolean and may append additional
+    values. The implementation therefore accepts either variant.
+    """
+    result = vs.GetCustomObjectInfo()
+
+    # Normalize the return signature to ``(success, name, obj, record, wall)``.
+    if len(result) >= 5:
+        success, obj_name, obj_handle, record_handle, wall_handle = result[:5]
+    else:
+        success = True
+        obj_name, obj_handle, record_handle, wall_handle = result[:4]
+
+    if not success or handle != obj_handle:
         return []
 
     num_params = vs.NumFields(record_handle)
