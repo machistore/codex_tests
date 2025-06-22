@@ -48,6 +48,7 @@ def get_pio_fields(handle):
     values. The implementation therefore accepts either variant.
     """
     result = vs.GetCustomObjectInfo()
+    vs.AlrtDialog(str(result))
 
     # Normalize the return signature to ``(success, name, obj, record, wall)``.
     if len(result) >= 5:
